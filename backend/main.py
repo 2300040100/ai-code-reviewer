@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from routers.review import router
 
 app = FastAPI(
     title="AI Code Reviewer",
@@ -14,6 +15,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Connect our review router to the main app
+app.include_router(router)
 
 
 @app.get("/")
