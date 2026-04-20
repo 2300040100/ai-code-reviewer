@@ -38,7 +38,7 @@ async def fetch_pr_data(pr_url: str) -> dict:
         "X-GitHub-Api-Version": "2022-11-28",
     }
 
-    async with httpx.AsyncClient(timeout=30) as client:
+    async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
 
         # First API call — get PR metadata
         meta_resp = await client.get(
