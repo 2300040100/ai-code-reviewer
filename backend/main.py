@@ -16,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Connect our review router to the main app
+# Connect review router to the main app
 app.include_router(router)
 
 
