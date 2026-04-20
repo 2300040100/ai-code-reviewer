@@ -61,12 +61,11 @@ async def run_review(
                 "No overall assessment provided."
             )
 
-    # Count by severity
+ 
     counts = {"critical": 0, "high": 0, "medium": 0, "low": 0}
     for issue in all_issues:
         counts[issue.severity] += 1
 
-    # Build summary
     summary = ReviewSummary(
         total_issues=len(all_issues),
         critical=counts["critical"],
@@ -76,7 +75,7 @@ async def run_review(
         overall_assessment=overall_assessment,
     )
 
-    # ✅ Build PR stats — this was missing before!
+
     stats = PRStats(
         author=pr_data["author"],
         base_branch=pr_data["base_branch"],
@@ -86,7 +85,7 @@ async def run_review(
         total_deletions=pr_data.get("total_deletions", 0),
     )
 
-    # ✅ Return with stats included
+
     return ReviewResponse(
         pr_title=pr_data["title"],
         pr_url=pr_url,
