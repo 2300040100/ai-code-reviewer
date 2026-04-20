@@ -4,8 +4,7 @@ from services.github import fetch_pr_data
 from services.reviewer import run_review
 
 
-# APIRouter is like a mini FastAPI app
-# prefix="/api" means all routes here start with /api
+
 router = APIRouter(prefix="/api", tags=["review"])
 
 
@@ -19,7 +18,7 @@ async def review_pull_request(request: ReviewRequest):
     Request → fetch from GitHub → run AI review → return results
     """
 
-    # Step 1 — Fetch PR data from GitHub
+    # Fetch PR data from GitHub
     try:
         pr_data = await fetch_pr_data(request.pr_url)
     except ValueError as e:
@@ -32,14 +31,14 @@ async def review_pull_request(request: ReviewRequest):
             detail=f"Failed to fetch PR from GitHub: {str(e)}",
         )
 
-    # Step 2 — Check there are actually reviewable files
+    # Check there are actually reviewable files
     if not pr_data["files"]:
         raise HTTPException(
             status_code=422,
             detail="No reviewable file changes found in this PR.",
         )
 
-    # Step 3 — Run the AI review
+    # Run the AI review
     try:
         result = await run_review(
             request.pr_url,
