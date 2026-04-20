@@ -46,8 +46,6 @@ class ReviewSummary(BaseModel):
     low: int
     overall_assessment: str
 
-
-# ✅ This was missing — now added!
 class PRStats(BaseModel):
     author: str
     base_branch: str
