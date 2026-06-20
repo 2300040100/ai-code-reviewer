@@ -7,10 +7,6 @@ Paste any public GitHub PR URL and get an instant structured code review coverin
 ![Built With](https://img.shields.io/badge/Built%20With-FastAPI%20%7C%20React%20%7C%20Groq%20AI-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-## Live Demo
-
-[ai-code-reviewer.vercel.app](https://ai-code-reviewer.vercel.app)
-
 ## Features
 
 - Bug Detection — logic errors, null pointer risks, race conditions
