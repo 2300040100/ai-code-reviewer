@@ -31,7 +31,6 @@ async def fetch_pr_data(pr_url: str) -> dict:
     """
     owner, repo, pr_number = parse_pr_url(pr_url)
 
-    # This is our "library card" - proves who we are to GitHub
     headers = {
         "Authorization": f"Bearer {settings.github_token}",
         "Accept": "application/vnd.github+json",
@@ -40,7 +39,7 @@ async def fetch_pr_data(pr_url: str) -> dict:
 
     async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
 
-        # First API call — get PR metadata
+       
         meta_resp = await client.get(
             f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}",
             headers=headers,
@@ -48,7 +47,7 @@ async def fetch_pr_data(pr_url: str) -> dict:
         meta_resp.raise_for_status()
         pr_meta = meta_resp.json()
 
-        # Second API call — get changed files
+        
         files_resp = await client.get(
             f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/files",
             headers=headers,
@@ -57,7 +56,6 @@ async def fetch_pr_data(pr_url: str) -> dict:
         files_resp.raise_for_status()
         pr_files = files_resp.json()
 
-    # Package everything into one clean dictionary
     return {
         "title": pr_meta["title"],
         "description": pr_meta.get("body") or "No description provided.",
@@ -73,6 +71,6 @@ async def fetch_pr_data(pr_url: str) -> dict:
                 "patch": f.get("patch", ""),
             }
             for f in pr_files
-            if f.get("patch")   # skip binary files — they have no text diff
+            if f.get("patch")  
         ],
     }
