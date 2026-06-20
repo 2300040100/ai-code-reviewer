@@ -1,5 +1,5 @@
 // The URL of FastAPI backend
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_API_URL || "https://ai-code-reviewer-production-4b89.up.railway.app";
 
 export async function reviewPR(prUrl, focusAreas) {
   // Send POST request to FastAPI backend
@@ -10,7 +10,7 @@ export async function reviewPR(prUrl, focusAreas) {
     },
     body: JSON.stringify({
       pr_url: prUrl,
-      focus_areas: focusAreas,
+      focus_areas: focusAreas
     }),
   });
 
